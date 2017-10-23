@@ -77,7 +77,7 @@ int main(int argc, const char * argv[]) {
 
     parseInputData(&a, &b, &x, &N, &p, &P, argv);
     printf("%d %d %d %d %.2f %d\n", a, b, x, N, p, P);
-    unsigned int seed = (int)time(NULL);
+    unsigned int commonSeed = (int)time(NULL);
    
     int rightEndPointCount = 0;
     int overallTime = 0;
@@ -89,6 +89,9 @@ int main(int argc, const char * argv[]) {
     
     #pragma omp parallel
     {
+        unsigned int complementarySeed = (int)time(NULL);
+        unsigned int seed = commonSeed + complementarySeed;
+        
         #pragma omp for reduction(+: rightEndPointCount, overallTime)
         for (int i = 0; i < N; ++i) {
             RandomWalk randomWalk = runRandomWalk(a, b, x, p, &seed);
