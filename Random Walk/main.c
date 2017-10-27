@@ -89,7 +89,7 @@ int main(int argc, const char * argv[]) {
     
     #pragma omp parallel
     {
-        unsigned int complementarySeed = (int)time(NULL);
+        unsigned int complementarySeed = omp_get_thread_num();
         unsigned int seed = commonSeed + complementarySeed;
         
         #pragma omp for reduction(+: rightEndPointCount, overallTime)
