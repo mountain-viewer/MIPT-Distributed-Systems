@@ -125,7 +125,7 @@ int binarySearch(int *array, int left, int right, int value) {
 
 // Implement a parallel merge algorithm
 void parallelMerge(MergeTask *task) {
-    if (task->leftSize < task->m || task->rightSize < task->m) {
+    if (task->leftSize <= task->m || task->rightSize <= task->m) {
         sequentialMerge(task);
         return;
     }
